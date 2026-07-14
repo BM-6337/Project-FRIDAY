@@ -34,18 +34,40 @@ This separation allows the conversational layer and the execution layer to evolv
 ## Request Flow
 
 ```mermaid
-graph TD
-    User((User))
-    User -->|Voice| STT[Speech-to-Text]
-    STT --> LLM[Gemini 1.5 Flash]
+flowchart LR
 
-    LLM <-->|Tool Calls| MCP[FastMCP Server]
-    MCP --> Tools[News • System Tools • Resources]
+    U((User))
+    MIC[Microphone]
+    STT[Speech-to-Text<br/>Sarvam Saaras v3]
 
-    LLM --> TTS[Text-to-Speech]
-    TTS --> Speaker((Assistant))
+    AGENT[Voice Agent]
 
-    LLM -.-> Dashboard[World Monitor]
+    LLM[Gemini 1.5 Flash]
+
+    MCP[MCP Server]
+
+    TOOLS[Tools & Resources<br/>News • Time • Web Search]
+
+    TTS[Text-to-Speech<br/>Sarvam Bulbul v3 / OpenAI]
+
+    SPK((Speaker))
+
+    DASH[World Monitor]
+
+    U --> MIC
+    MIC --> STT
+    STT --> AGENT
+    AGENT --> LLM
+
+    LLM <-->|Tool Calls| MCP
+    MCP --> TOOLS
+    TOOLS --> MCP
+    MCP --> LLM
+
+    LLM --> TTS
+    TTS --> SPK
+
+    LLM -. Optional Trigger .-> DASH
 ```
 
 ---
