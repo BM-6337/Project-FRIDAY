@@ -186,18 +186,13 @@ To begin interacting with the assistant, open the LiveKit Agents Playground and 
 
 ```text
 friday/
-├── server/
-│   ├── tools/
-│   ├── prompts/
-│   └── resources/
-│
-├── voice/
-│   ├── agent.py
-│   ├── pipeline.py
-│   └── plugins/
-│
-├── .env.example
-├── pyproject.toml
+├── FRIDAY.py             # Main voice assistant
+├── server.py             # FastMCP server exposing tools and resources
+├── .env.example          # Environment variables template
+├── pyproj.toml           # Project configuration
+├── uv.lock               # Locked dependencies
+├── .gitignore
+├── LICENSE
 └── README.md
 ```
 
