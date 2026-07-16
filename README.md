@@ -36,38 +36,39 @@ This separation allows the conversational layer and the execution layer to evolv
 ```mermaid
 flowchart LR
 
-    U((User))
-    MIC[Microphone]
-    STT[Speech-to-Text<br/>Sarvam Saaras v3]
+User((User))
+--> Mic[Microphone]
 
-    AGENT[Voice Agent]
+Mic
+--> STT[Speech-to-Text]
 
-    LLM[Gemini 1.5 Flash]
+STT
+--> Agent[Voice Agent]
 
-    MCP[MCP Server]
+Agent
+--> LLM[Gemini 1.5 Flash]
 
-    TOOLS[Tools & Resources<br/>News • Time • Web Search]
+LLM
+<-->|MCP Protocol| MCP[FastMCP Server]
 
-    TTS[Text-to-Speech<br/>Sarvam Bulbul v3 / OpenAI]
+MCP
+--> News[News Sources]
 
-    SPK((Speaker))
+MCP
+--> Search[Web Search]
 
-    DASH[World Monitor]
+MCP
+--> Time[Time Service]
 
-    U --> MIC
-    MIC --> STT
-    STT --> AGENT
-    AGENT --> LLM
+LLM
+--> TTS[Text-to-Speech]
 
-    LLM <-->|Tool Calls| MCP
-    MCP --> TOOLS
-    TOOLS --> MCP
-    MCP --> LLM
+TTS
+--> Speaker((Speaker))
 
-    LLM --> TTS
-    TTS --> SPK
-
-    LLM -. Optional Trigger .-> DASH
+LLM
+-. Optional Trigger .->
+Dashboard[World Monitor]
 ```
 
 ---
